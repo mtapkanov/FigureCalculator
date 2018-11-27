@@ -1,17 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using Solution.Parameters;
 
 namespace Solution.Figures
 {
     public class Triangle : Figure
     {
-        public Triangle(IFigureParameter parameters) : base(parameters)
+        private readonly IDictionary<string, object> _parameters;
+
+        public Triangle(IDictionary<string, object> parameters) : base(parameters)
         {
+            _parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
         }
 
-        protected override double Calculate(IFigureParameter param)
+        protected override double Calculate(IDictionary<string, object> parameters)
         {
-            var parameter = GetTriangleParameter(param);
+            ValidateRequiredParameters(ParameterKeys.Triangle);
+            
+            var parameter = GetTriangleParameter(parameters[ParameterKeys.Triangle]);
             var p = 0.5 * (parameter.A + parameter.B + parameter.C);
             return Math.Sqrt(p * (p - parameter.A) * (p - parameter.B) * (p - parameter.C));
         }
@@ -20,7 +26,9 @@ namespace Solution.Figures
         {
             get
             {
-                var parameter = GetTriangleParameter(Parameters);
+                ValidateRequiredParameters(ParameterKeys.Triangle);
+
+                var parameter = GetTriangleParameter(_parameters[ParameterKeys.Triangle]);
                 var a = parameter.A;
                 var b = parameter.B;
                 var c = parameter.C;
@@ -33,12 +41,12 @@ namespace Solution.Figures
             }
         }
 
-        private TriangleParameter GetTriangleParameter(IFigureParameter parameter)
+        private TriangleParameter GetTriangleParameter(object parameter)
         {
             if (parameter is TriangleParameter param)
                 return param;
 
-            throw new InvalidOperationException($"parameters {parameter.Name} is wrong");
+            throw new InvalidOperationException($"parameters {nameof(TriangleParameter)} is wrong");
         }
     }
 }

@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,11 +45,9 @@
     <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Rectangle.cs" />
     <Compile Include="Figures\Triangle.cs" />
-    <Compile Include="Parameters\CircleParameter.cs" />
     <Compile Include="Figure.cs" />
-    <Compile Include="FigureNames.cs" />
-    <Compile Include="IFigureParameter.cs" />
-    <Compile Include="Parameters\RectangleParameter.cs" />
+    <Compile Include="Figures\UnknownFigure.cs" />
+    <Compile Include="Parameters\ParameterKeys.cs" />
     <Compile Include="Parameters\TriangleParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

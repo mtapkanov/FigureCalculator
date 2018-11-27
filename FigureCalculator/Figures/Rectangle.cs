@@ -1,22 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using Solution.Parameters;
 
 namespace Solution.Figures
 {
     public class Rectangle : Figure
     {
-        public Rectangle(IFigureParameter parameters) : base(parameters)
+        public Rectangle(IDictionary<string, object> parameters) : base(parameters)
         {
         }
 
-        protected override double Calculate(IFigureParameter param)
+        protected override double Calculate(IDictionary<string, object> parameters)
         {
-            if (param is RectangleParameter rectangleParameter)
+            ValidateRequiredParameters(ParameterKeys.Length, ParameterKeys.Width);
+
+            if (parameters[ParameterKeys.Length] is double length && parameters[ParameterKeys.Width] is double width)
             {
-                return rectangleParameter.Length * rectangleParameter.Width;
+                return length * width;
             }
 
-            throw new InvalidOperationException($"parameters {param.Name} is wrong");
+            throw new InvalidOperationException($"some type is not valid");
         }
     }
 }
